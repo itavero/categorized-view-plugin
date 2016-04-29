@@ -131,19 +131,16 @@ public class GroupTopLevelItem  implements TopLevelItem{
 		});
 	}
 
-	public Run getLastBuildOfType(GetBuild getBuild) {
+	private Run getLastBuildOfType(GetBuild getBuild) {
 		AbstractBuild lastBuild = null;
 		for (TopLevelItem item : getNestedItems()) {
 			if (item instanceof AbstractProject) {
 				AbstractBuild build = getBuild.getFrom((AbstractProject)item);
-				if (lastBuild == null)
+				if (lastBuild == null) {
 					lastBuild = build;
-				if (build == null)
-					continue;
-				else {
-					if (new DateTime(build.getTimestamp()).isAfter(new DateTime(lastBuild.getTimestamp()))) {
-						lastBuild = build;
-					}
+				} else if (build != null
+						&& new DateTime(build.getTimestamp()).isAfter(new DateTime(lastBuild.getTimestamp()))) {
+					lastBuild = build;
 				}
 			}
 		}
@@ -241,13 +238,11 @@ public class GroupTopLevelItem  implements TopLevelItem{
 	}
 
 	public HealthReport getBuildHealth() {
-		HealthReport lowest = new HealthReport();
-		lowest.setScore(100);
+		HealthReport lowest = null;
 		for (TopLevelItem e : getNestedItems()) {
 			if (e instanceof AbstractProject) {
 				HealthReport buildHealth = ((AbstractProject)e).getBuildHealth();
-				if (buildHealth.getScore() < lowest.getScore())
-					lowest = buildHealth;
+				lowest = HealthReport.min(lowest, buildHealth);
 			}
 		}
 		return lowest;

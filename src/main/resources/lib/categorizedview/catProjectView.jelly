@@ -93,8 +93,9 @@ THE SOFTWARE.
     </j:if>
   </div>
   <script type="text/javascript">
-  	$$("table.categorizedSortable").each(function(e){
-  		e.sortable = new  CategorizedSortable.CategorizedSortable(e);	
-  	})
+/*  	$$("table.categorizedSortable").each(function(e){
+  		e.sortable = new CategorizedSortable.CategorizedSortable(e);
+  	})*/
+  	initJobGroupRemoveIndent();
   </script>
 </j:jelly>

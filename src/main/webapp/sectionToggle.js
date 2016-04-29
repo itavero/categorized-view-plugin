@@ -1,3 +1,21 @@
+function initJobGroupRemoveIndent() {
+    $$('tr.categoryJobs[category]').each(
+    function (top) {
+        group = top.readAttribute('categoryGroup');
+        top.select('tr[id^=job_]').each(
+            function (row) {
+                // Add additional cell to compensate for the collapse/expand icon.
+                row.insert({top: new Element('td')});
+                // Add group class and hide the row
+                row.addClassName(group);
+                row.hide();
+                // Move row to the correct table
+                top.insert({before: row});
+            });
+        top.remove();
+    });
+}
+
 function restoreJobGroupCollapseState(viewName, groupName) 
 {
 	var collapseState = getGroupState(viewName,groupName);

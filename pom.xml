@@ -3,7 +3,6 @@
   <parent>
     <groupId>org.jenkins-ci.plugins</groupId>
     <artifactId>plugin</artifactId>
-    <!-- <version>1.551</version> -->
     <version>1.532.1</version> 
   </parent>
 
@@ -100,6 +99,10 @@
 		      <plugin>
 		        <groupId>org.jenkins-ci.tools</groupId>
 		        <artifactId>maven-hpi-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+                    <disabledTestInjection>true</disabledTestInjection>
+                </configuration>
 		        <executions>
 		          <execution>
 		            <goals>
